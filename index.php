@@ -19,8 +19,8 @@
     <div id="container">
         <img id="logo" src="tetris.png" width="250px" height="250px">
         <center>
-            <h1>Welcome to Tetris</h1>
-            <p>Enter credentials to play</p>
+            <h1>Seja bem-vindo ao Tetris</h1>
+            <p>Aperte Enter para entrar</p>
             <?php 
 	            if($_GET['login']=="failed")
 	            	echo "<p class=\"error\">Invalid Username/Password, try again!</p>"; 
@@ -34,7 +34,7 @@
             </form>
             <hr>
             <br>
-            <span>Don't have an account?&nbsp;</span>
+            <span>Não tem conta?&nbsp;</span>
             <a href="signup.php" class="buttong"><i class="fa fa-user"></i>&nbsp;SIGN UP</a>
         </center>
     </div>
