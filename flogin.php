@@ -29,9 +29,9 @@
 	if(isset($_POST['login']))
 	authenticate($_POST['username'], $_POST['password']);
 	
-	//Test login
+	//Teste de login
 	/*
 		authenticate("test", "test");
-		echo "Login success";
+		echo "Login bem sucedido";
 	*/
 ?>
