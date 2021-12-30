@@ -1,10 +1,4 @@
-/* tetris.js
-	Contains all game logic
-	+ Uses JQuery & Howler.js (for more info, see project document)
-	COEN276 Project - KARTHIK
-*/
-
-/* Game Sounds */
+/* tetris.js Logica do jogo */
 
 var bgSound = new Howl({
     src: ["sounds/bgscore.mp3"],
@@ -34,21 +28,20 @@ var endSound = new Howl({
     volume: 0.7
 });
 
-/* Global Variables */
+/* Variaveis */
 
-//Game board related parameters
 var board = [];
 var columns = 12;
 var rows = 24;
 var blockWidth = $('#board').width() / columns;
 var blockHeight = $('#board').height() / rows;
 
-//Represents the type and position of the dropping block
+//Posição do bloco
 var current;
 var currentX;
 var currentY;
 
-//tetrimino shape configurations and colors
+//Configurações e cores da forma
 var tetriminoes = [
     [1, 1, 1, 1],	//I
     [1, 1, 1, 0,	//J
@@ -68,20 +61,20 @@ var colors = [
     'cyan', 'blue', 'darkorange', 'yellow', 'green', 'darkmagenta', 'red'
 ];
 
-//Game state parameters
+//Parametros
 var score = 0;
 var gameLost = false;
 var gameBegan = false;
 var isPaused = false;
 
-//Canvas to draw on
+//Tela 
 var context = $('#board')[0].getContext("2d");
 var dropRate;
 var drawRate;
 
 /* Game Logic */
 
-//Create new tetrimino shape
+//Criando nova forma
 function newShape() {
     var type = Math.floor(Math.random() * tetriminoes.length);
     var shape = tetriminoes[type];
@@ -100,18 +93,18 @@ function newShape() {
         }
     }
 
-    //Rotate randomly 
+    //Girar aleatoriamente
     var autoRotate = Math.floor((Math.random() * 4));
     for (var i = 0; i < autoRotate; i++) {
         //handleKey('rotate');
     }
 
-    //Entry point of tetriminoes
+    //Ponto de entrada
     currentX = Math.floor((Math.random() * 6) + 2);
     currentY = 0;
 }
 
-//Clear board
+//Quadro transparente
 function init() {
     for (var y = 0; y < rows; y++) {
         board[y] = [];
@@ -121,7 +114,7 @@ function init() {
     }
 }
 
-//Keep current shape falling down and clear lines if necessary
+//Mantendo a forma atual caindo e linhas claras
 function drop() {
     if (isValid(0, 1)) {
         currentY++;
@@ -137,7 +130,7 @@ function drop() {
     }
 }
 
-//Freeze shape in board
+//Forma congelada
 function settle() {
 	clearInterval(dropRate);
 	dropRate = setInterval(drop, 400);
@@ -155,7 +148,7 @@ function settle() {
     });
 }
 
-//Rotate shape anticlockwise
+//Girar forma no sentido anti-horário
 function rotate(current) {
     var rotated = [];
     for (var y = 0; y < 4; y++) {
@@ -167,7 +160,7 @@ function rotate(current) {
     return rotated;
 }
 
-//Clear line if no gaps remain
+//Limpar a linha se não houver lacunas
 function clearLines() {
     for (var y = rows - 1; y >= 0; --y) {
         var rowFilled = true;
@@ -191,7 +184,7 @@ function clearLines() {
     }
 }
 
-//Check if shape can be placed properly
+//Verifique se a forma pode ser colocada corretamente
 function isValid(offsetX, offsetY, rotated) {
     offsetX = offsetX || 0;
     offsetY = offsetY || 0;
@@ -219,18 +212,18 @@ function isValid(offsetX, offsetY, rotated) {
     return true;
 }
 
-/* Game Display */
+/* Display do jogo*/
 
-//Draws a single block within a tetrimino
+//Desenha um único bloco 
 function drawBlock(x, y, color) {
 	context.fillStyle = color;
     context.fillRect(blockWidth * x, blockHeight * y, blockWidth - 1, blockHeight - 1);
 }
 
-//Overall rendering of the board and the tetriminoes on screen
+//Renderização geral do tabuleiro
 function draw() {
     context.clearRect(0, 0, $('#board').width(), $('#board').height());
-    //Settled blocks
+    //Blocos
     for (var x = 0; x < columns; x++) {
         for (var y = 0; y < rows; y++) {
             if (board[y][x]) {
@@ -238,7 +231,7 @@ function draw() {
             }
         }
     }
-    //Moving shapes
+    //Forma moveis
     for (var y = 0; y < 4; y++) {
         for (var x = 0; x < 4; x++) {
             if (current[y][x]) {
@@ -248,7 +241,7 @@ function draw() {
     }
 }
 
-/* Game Controls */
+/* Controles do jogo */
 
 function newGame() {
     if ($('#musicswitch').is(':checked')) bgSound.stop().play();
@@ -313,7 +306,7 @@ function gameOver() {
     $('#gameover').show();
 }
 
-//Handle key presses by player
+//Lidar com as teclas pressionadas pelo player
 function handleKey(key) {
     switch (key) {
     case 'left':
@@ -364,7 +357,7 @@ function handleKey(key) {
     }
 }
 
-//Setup the game environment and controls
+//Setup dos controles 
 $(document).keydown(function (event) {
     var pressedKey = event.keyCode;
     var controlKeys = {
