@@ -72,8 +72,6 @@ var context = $('#board')[0].getContext("2d");
 var dropRate;
 var drawRate;
 
-/* Game Logic */
-
 //Criando nova forma
 function newShape() {
     var type = Math.floor(Math.random() * tetriminoes.length);
